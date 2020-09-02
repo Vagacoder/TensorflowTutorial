@@ -12,6 +12,7 @@ print(tf.__version__)
 
 # * Fashion MNIST is replacement of classic MNIST dataset - often used as the
 # * "Hello world" of machine learning for computer vision.
+# ! Step 1. get dataset
 fashion_mnist = keras.datasets.fashion_mnist
 
 # ? train_images and train_labels arrays are the training set
@@ -48,6 +49,7 @@ plt.show()
 
 # %%
 # * Preprocess the data
+# ! Step 2. Normalize dataset
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
@@ -73,6 +75,10 @@ plt.show()
 # %%
 # * Build the model
 # ? Setup layers
+# ! Step 3. Setup neural network layers, 
+# ! 3.1. Setup flatten 
+# ! 3.2. Setup hidden layer and activation function
+# ! 3.3. Setup Output layer, but no output function
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28,28)),
     keras.layers.Dense(128, activation='relu'),
@@ -81,6 +87,10 @@ model = keras.Sequential([
 
 #%%
 # ? Compile the model
+# ! Step 4. Compile neural network
+# ! 4.1. Setup optimizer (how to update gradient)
+# ! 4.2. Setup loss function 
+# ! 4.3. Setup evaluation metrics
 model.compile(optimizer='adam',
                 loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
                 metrics=['accuracy'])
@@ -88,6 +98,9 @@ model.compile(optimizer='adam',
 #%%
 # * Train the model
 # ? Feed the model
+# ! Step 5. Training: feed training dataset to neural network
+# ! 5.1. training dataset and labels
+# ! 5.2. epoch numbers
 model.fit(train_images, train_labels, epochs=10)
 
 
@@ -100,6 +113,8 @@ print('\nTest loss:', test_loss);
 
 # %%
 # ? Make predictions
+# ! Step 6. After training, make prediction
+# ! 6.1. Setup output function for outputlayer
 probability_model = tf.keras.Sequential([
     model,
     tf.keras.layers.Softmax()
@@ -205,6 +220,3 @@ _ = plt.xticks(range(10), class_names, rotation=45)
 
 print(np.argmax(predictions_single[0]))
 
-
-
-# %%
