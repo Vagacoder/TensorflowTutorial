@@ -139,3 +139,7 @@ cython_debug/
 
 # My settings
 .vscode/
+
+# Downloaded file
+*.gz
+*/aclImdb/
